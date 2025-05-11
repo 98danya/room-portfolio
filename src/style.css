@@ -602,6 +602,14 @@
   content: none;
 }
 
+.contactme-modal .modal-wrapper {
+  overflow-y: auto;
+  max-height: calc(80vh - 44px);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .contactme-content {
   display: flex;
   height: 100%;
@@ -779,3 +787,140 @@ textarea::placeholder {
 /* =======================
    Responsive Design
 ======================= */
+
+@media (max-width: 768px) {
+  .aboutme-modal,
+  .projects-modal,
+  .contactme-modal {
+    width: 90%;
+    max-height: 90vh;
+    border-radius: 16px;
+  }
+
+  .aboutme-modal .modal-wrapper,
+  .projects-modal .modal-wrapper,
+  .contactme-modal .modal-wrapper {
+    padding: 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-subtitle {
+    font-size: 1rem;
+  }
+
+  .project-image {
+    width: 100%;
+    max-height: 200px;
+  }
+
+  .loading-bar-container {
+    width: 80%;
+    bottom: 200px;
+  }
+
+  .loading-screen-button {
+    font-size: 32px;
+    padding: 8px 24px;
+  }
+
+  .contactme-content {
+    flex-direction: column;
+  }
+
+  .contactme-social-section {
+    padding: 1rem 0;
+  }
+
+  .social-icons i,
+  .social-icons img {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutme-modal,
+  .projects-modal,
+  .contactme-modal {
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .profile-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .folder-img {
+    width: 50px;
+    height: 36px;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1rem;
+  }
+
+  .tech-item {
+    font-size: 0.85rem;
+  }
+
+  .tech-item i,
+  .tech-item img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .loading-bar-container {
+    height: 60px;
+    bottom: 150px;
+  }
+
+  .loading-screen p {
+    font-size: 14px;
+    bottom: 80px;
+  }
+
+  .loading-screen-button {
+    font-size: 24px;
+    padding: 6px 16px;
+  }
+
+  .slide-btn {
+    font-size: 1.5rem;
+  }
+
+  #mode-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+  }
+
+  .sun-svg,
+  .moon-svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+  }
+
+  .send-button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+}

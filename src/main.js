@@ -239,14 +239,14 @@ const showModal = (modal) => {
   overlay.style.display = "block";
 
   if (modal === modals.contactme) {
-    const form = modal.querySelector('#contact-form');
-    const successMessage = modal.querySelector('#form-success');
-    const title = modal.querySelector('.form-title');
+    const form = modal.querySelector("#contact-form");
+    const successMessage = modal.querySelector("#form-success");
+    const title = modal.querySelector(".form-title");
 
     if (form && successMessage && title) {
-      form.style.display = 'block';
-      successMessage.style.display = 'none';
-      title.style.display = 'block';
+      form.style.display = "block";
+      successMessage.style.display = "none";
+      title.style.display = "block";
     }
   }
 
@@ -268,15 +268,15 @@ const hideModal = (modal) => {
   isModalOpen = false;
   controls.enabled = true;
 
-    if (modal === modals.contactme) {
-    const form = modal.querySelector('#contact-form');
-    const successMessage = modal.querySelector('#form-success');
-    const title = modal.querySelector('.form-title');
+  if (modal === modals.contactme) {
+    const form = modal.querySelector("#contact-form");
+    const successMessage = modal.querySelector("#form-success");
+    const title = modal.querySelector(".form-title");
 
     if (form && successMessage && title) {
-      form.style.display = 'block';
-      title.style.display = 'block';
-      successMessage.style.display = 'none';
+      form.style.display = "block";
+      title.style.display = "block";
+      successMessage.style.display = "none";
       form.reset();
     }
   }
@@ -314,31 +314,35 @@ function toggleToAbout() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+  document
+    .getElementById("contact-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const form = e.target;
-    const data = new FormData(form);
+      const form = e.target;
+      const data = new FormData(form);
 
-    fetch('https://formspree.io/f/mqaqdqeb', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json'
-      },
-      body: data
-    }).then(response => {
-      if (response.ok) {
-        form.reset();
-            document.querySelector('.form-title').style.display = 'none'; 
-        document.getElementById('form-success').style.display = 'block';
-        form.style.display = 'none';
-      } else {
-        alert('Oops! Something went wrong.');
-      }
-    }).catch(error => {
-      alert('There was a problem sending your message.');
+      fetch("https://formspree.io/f/mqaqdqeb", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: data,
+      })
+        .then((response) => {
+          if (response.ok) {
+            form.reset();
+            document.querySelector(".form-title").style.display = "none";
+            document.getElementById("form-success").style.display = "block";
+            form.style.display = "none";
+          } else {
+            alert("Oops! Something went wrong.");
+          }
+        })
+        .catch((error) => {
+          alert("There was a problem sending your message.");
+        });
     });
-  });
   document
     .querySelector(".folder-icon")
     ?.addEventListener("click", toggleToTools);
@@ -374,33 +378,16 @@ document.addEventListener("DOMContentLoaded", () => {
     [4000, 5000, 4500]
   );
 
-  cycleImages(
-    "memory-gif",
-    [
-      "/projects/memory.gif"
-    ],
-    [15000]
-  );
+  cycleImages("memory-gif", ["/projects/memory.gif"], [15000]);
 
-   cycleImages(
+  cycleImages(
     "blog-gif",
-    [
-      "/projects/blog-1.gif",
-      "/projects/blog-2.gif"
-    ],
+    ["/projects/blog-1.gif", "/projects/blog-2.gif"],
     [40000, 20000]
   );
 
-    cycleImages(
-    "cv-gif",
-    [
-      "/projects/cv.gif"
-    ],
-    [30000]
-  );
-
+  cycleImages("cv-gif", ["/projects/cv.gif"], [30000]);
 });
-
 
 function handleCursorAndHover() {
   raycaster.setFromCamera(pointer, camera);
@@ -437,7 +424,6 @@ function handleCursorAndHover() {
 
   document.body.style.cursor = hoveringClickable ? "pointer" : "default";
 }
-
 
 function handleRaycasterInteraction() {
   if (currentIntersects.length > 0) {
@@ -611,7 +597,6 @@ loader.load("/models/danya_portfolio.glb", (glb) => {
       }
         */
 
-
       if (child.name.includes("Mirror")) {
         const mirrorGeo = child.geometry;
         const mirrorPos = child.position.clone();
@@ -694,9 +679,6 @@ loader.load("/models/danya_portfolio.glb", (glb) => {
           );
           child.userData.material = child.material;
         }
-
-        
-
       });
     }
     child.renderOrder = 1;
@@ -717,21 +699,19 @@ toggleButton.addEventListener("click", () => {
   moonIcon.classList.toggle("hidden", currentMode === "day");
 
   toggleButton.classList.toggle("light-mode", currentMode === "day");
-toggleButton.classList.toggle("night-mode", currentMode === "night");
+  toggleButton.classList.toggle("night-mode", currentMode === "night");
 
-document.body.classList.toggle("dark-mode", currentMode === "night");
-document.body.classList.toggle("light-mode", currentMode === "day");
+  document.body.classList.toggle("dark-mode", currentMode === "night");
+  document.body.classList.toggle("light-mode", currentMode === "day");
   const isNightMode = currentMode === "night";
 
-document.getElementById("github-icon").src =
-  currentMode === "day"
-    ? "images/github-day.svg"
-    : "images/github-night.svg";
+  document.getElementById("github-icon").src =
+    currentMode === "day" ? "images/github-day.svg" : "images/github-night.svg";
 
-document.getElementById("linkedin-icon").src =
-  currentMode === "day"
-    ? "images/linkedin-day.svg"
-    : "images/linkedin-night.svg";
+  document.getElementById("linkedin-icon").src =
+    currentMode === "day"
+      ? "images/linkedin-day.svg"
+      : "images/linkedin-night.svg";
 
   scene.traverse((child) => {
     if (
@@ -764,6 +744,20 @@ toggleButton.addEventListener("mouseout", () => {
   document.body.style.cursor = "default";
 });
 
+function updateCameraForScreenSize() {
+  const isMobile = window.innerWidth <= 768;
+
+  camera.fov = isMobile ? 50 : 35;
+
+  camera.position.set(
+    isMobile ? 60 : 20,
+    isMobile ? 16 : 12,
+    isMobile ? 36 : 28
+  );
+
+  camera.updateProjectionMatrix();
+}
+
 const camera = new THREE.PerspectiveCamera(
   35,
   sizes.width / sizes.height,
@@ -771,6 +765,8 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.set(20, 12, 28);
+
+updateCameraForScreenSize();
 
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
@@ -835,6 +831,7 @@ window.addEventListener("resize", () => {
   sizes.height = window.innerHeight;
 
   camera.aspect = sizes.width / sizes.height;
+  updateCameraForScreenSize();
   camera.updateProjectionMatrix();
 
   renderer.setSize(sizes.width, sizes.height);
@@ -993,4 +990,3 @@ nextBtn.addEventListener("click", () => {
   currentSlide = (currentSlide + 1) % slides.length;
   updateSlide(currentSlide);
 });
-
