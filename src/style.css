@@ -22,6 +22,11 @@
   display: none;
 }
 
+.sun-icon,
+.moon-icon {
+  transition: all 0.3s ease;
+}
+
 .loading-bar-container {
   position: absolute;
   bottom: 500px;
@@ -62,7 +67,7 @@
   background-color: transparent;
   padding: 10px 40px;
   outline: none;
-  color: #deadbc;
+  color: #e6dede;
   border-radius: 1.2rem;
   border: none;
   font-size: 42px;
@@ -150,28 +155,41 @@
 }
 
 #mode-toggle {
-  border: 8px solid #d3697f;
-  background-color: #deadbc;
+  border: 8px solid #deadbc;
+  background-color: #d3697f;
   padding: 10px 16px;
-  color: #d3697f;
   border-radius: 1.2rem;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+
+#mode-toggle.light-mode {
+  border: 8px solid #deadbc;
+  background-color: #d3697f;
+  color: #deadbc;
+}
+
+#mode-toggle.night-mode {
+  border: 8px solid #d3697f;
+  background-color: #deadbc;
+  color: #d3697f;
 }
 
 #mode-toggle:hover {
   transform: rotate(5deg) scale(1.3);
 }
 
-.sun-svg, .moon-svg {
+.sun-svg,
+.moon-svg {
   width: 40px;
   height: 40px;
   stroke: #d3697f;
@@ -190,6 +208,8 @@
 .moon-svg {
   display: none;
 }
+
+
 
 /* =======================
    About Me Modal
@@ -234,7 +254,7 @@
 .modal-exit-button {
   width: 15px;
   height: 15px;
-  background: #d3697f;
+  background: #deadbc;
   border: none;
   border-radius: 50%;
   position: absolute;
@@ -245,12 +265,13 @@
 }
 
 .modal-exit-button:hover {
-  background: #ce8393;
+  background: #d3697f;
 }
 
 .aboutme-modal .modal-wrapper {
   flex: 1;
   overflow-y: auto;
+  max-height: 70vh;
   padding: 1.5rem;
   margin-top: 0;
 }
@@ -334,7 +355,7 @@
 .return-button {
   background: none;
   border: none;
-  color: #d3697f;
+  color: #deadbc;
   font-size: 2rem;
   font-weight: 900;
   cursor: pointer;
@@ -360,7 +381,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #d3697f;
+  color: #deadbc;
   font-size: 1rem;
 }
 
@@ -370,11 +391,12 @@
   width: 48px;
   height: 48px;
   margin-bottom: 0.5rem;
-filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-rotate(298deg) brightness(84%) contrast(87%);}
+  filter: brightness(0) saturate(100%) invert(82%) sepia(11%) saturate(811%) hue-rotate(296deg) brightness(89%) contrast(95%);
+}
 
 .tech-item span {
   font-size: 0.9rem;
-  color: #d3697f;
+  color: #222;
 }
 
 .custom-icon-img {
@@ -382,7 +404,8 @@ filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-r
   height: 24px;
   margin-right: 0.5rem;
   vertical-align: middle;
-filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-rotate(298deg) brightness(84%) contrast(87%);}
+  filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-rotate(298deg) brightness(84%) contrast(87%);
+}
 
 /* =======================
    Projects Modal
@@ -453,9 +476,9 @@ filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-r
 }
 
 .slide-content {
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .slides-container {
@@ -490,7 +513,7 @@ align-items: center;
 .slide-btn {
   background: none;
   border: none;
-  color: #d3697f;
+  color: #deadbc;
   font-size: 2rem;
   font-weight: 900;
   cursor: pointer;
@@ -512,6 +535,10 @@ align-items: center;
   margin: 10px 0;
 }
 
+.project-slider h1 {
+  color: #deadbc;
+}
+
 .project-slider p {
   max-width: 600px;
   margin: 0 auto;
@@ -521,7 +548,7 @@ align-items: center;
 }
 
 .slide a {
-  color: #d3697f;
+  color: #deadbc;
   text-decoration: none;
   font-weight: bold;
 }
@@ -595,8 +622,13 @@ align-items: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-left: 2px solid #ddd;
   padding-left: 1rem;
+  text-decoration: none;
+}
+
+.contactme-modal h1 {
+  color: #deadbc;
+  padding-bottom: 1rem;
 }
 
 .contact-form input,
@@ -610,8 +642,13 @@ align-items: center;
   font-size: 1rem;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: #deadbc;
+}
+
 .send-button {
-  background-color: #d3697f;
+  background-color: #deadbc;
   color: white;
   padding: 0.8rem 1.5rem;
   border: none;
@@ -625,15 +662,119 @@ align-items: center;
   background-color: #ce8393;
 }
 
+.contactme-social-section {
+  padding: 2rem;
+  text-decoration: none;
+
+}
+
 .social-icons i,
 .social-icons img {
   padding: 10px;
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   font-size: 3rem;
   text-decoration: none;
+}
+
+.social-icons a {
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+/* =======================
+   Dark Mode
+======================= */
+
+.dark-mode .aboutme-modal,
+.dark-mode .projects-modal,
+.dark-mode .contactme-modal {
+  background: rgba(145, 145, 145, 0.75);
+  color: #f0f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .aboutme-modal::before,
+.dark-mode .projects-modal::before,
+.dark-mode .contactme-modal::before {
+  background: linear-gradient(to bottom, #b9b9b9, #aeacac);
+  border-bottom: 1px solid #c0c0c0;
+
+
+}
+
+
+.dark-mode .modal-title,
+.dark-mode .modal-subtitle,
+.dark-mode .profile-name,
+.dark-mode .modal-subheading {
+  color: #f0f0f0;
+}
+
+.dark-mode .modal-wrapper p {
+  color: #ffffff;
+}
+
+.dark-mode .modal-exit-button {
+  background: #d3697f;
+}
+
+.dark-mode .modal-exit-button:hover {
+  background: #deadbc;
+}
+
+.dark-mode .tech-item span,
+.dark-mode h2,
+.dark-mode .project-slider h1,
+.dark-mode .folder-icon {
+  color: #fff;
+}
+
+
+.dark-mode .slide a,
+.dark-mode .return-button,
+.dark-mode .tech-item {
+  color: #d3697f;
+}
+
+
+.dark-mode .slide-btn {
+  color: #d3697f;
+}
+
+.dark-mode .contactme-modal h1 {
+  color: #fff;
+}
+
+.dark-mode .custom-icon-img,
+.dark-mode .tech-item i {
   filter: brightness(0) saturate(100%) invert(51%) sepia(59%) saturate(397%) hue-rotate(298deg) brightness(84%) contrast(87%);
 }
+
+.dark-mode .contact-form input,
+.dark-mode .contact-form textarea {
+  background-color: #bdbcbc;
+  color: #f0f0f0;
+  border: 1px solid #555555;
+}
+
+.dark-mode input::placeholder,
+textarea::placeholder {
+  color: #d3697f;
+  opacity: 1;
+}
+
+.dark-mode .send-button {
+  background-color: #d3697f;
+  color: #f0f0f0;
+}
+
+.dark-mode .send-button:hover {
+  background-color: #deadbc;
+  color: #f0f0f0;
+}
+
 
 /* =======================
    Responsive Design

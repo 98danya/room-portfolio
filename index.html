@@ -18,21 +18,21 @@
     <svg class="icon sun-icon" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M733.333 550H66.666M666.666 666.667H133.333M399.999 100V166.667M133.333 433.333H66.666M210.47 243.804L163.329 196.663M589.516 243.804L636.659 196.663M733.333 433.333H666.666M233.333 433.333C233.333 341.287 307.952 266.667 399.999 266.667C492.046 266.667 566.666 341.287 566.666 433.333"
-        stroke="currentColor" stroke-width="85" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        stroke="#deadbc" stroke-width="85" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     </svg>
     <svg class="icon moon-icon hidden" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M446.619 254.869C449.832 245.908 462.666 245.908 465.879 254.869L474.669 279.371C475.699 282.239 477.983 284.495 480.886 285.511L505.696 294.193C514.766 297.368 514.766 310.04 505.696 313.215L480.886 321.897C477.983 322.913 475.699 325.169 474.669 328.038L465.879 352.54C462.666 361.5 449.832 361.5 446.619 352.54L437.829 328.038C436.799 325.169 434.516 322.913 431.612 321.897L406.803 313.215C397.733 310.04 397.733 297.368 406.803 294.193L431.612 285.511C434.516 284.495 436.799 282.239 437.829 279.371L446.619 254.869Z"
-        fill="currentColor" />
+        fill="#d3697f" />
       <path
         d="M543.581 363.74C545.724 357.766 554.278 357.766 556.421 363.74L562.281 380.073C562.968 381.986 564.491 383.49 566.427 384.166L582.964 389.956C589.014 392.073 589.014 400.52 582.964 402.636L566.427 408.423C564.491 409.103 562.968 410.606 562.281 412.52L556.421 428.853C554.278 434.826 545.724 434.826 543.581 428.853L537.721 412.52C537.034 410.606 535.511 409.103 533.574 408.423L517.037 402.636C510.987 400.52 510.987 392.073 517.037 389.956L533.574 384.166C535.511 383.49 537.034 381.986 537.721 380.073L543.581 363.74Z"
-        fill="currentColor" />
+        fill="#d3697f" />
       <path
         d="M592.31 109.728C596.963 96.7573 615.537 96.7573 620.19 109.728L636.14 154.184C637.627 158.335 640.937 161.602 645.14 163.073L690.15 178.825C703.283 183.421 703.283 201.764 690.15 206.36L645.14 222.112C640.937 223.583 637.627 226.85 636.14 231.002L620.19 275.457C615.537 288.428 596.963 288.428 592.31 275.457L576.36 231.002C574.873 226.85 571.563 223.583 567.36 222.112L522.35 206.36C509.217 201.764 509.217 183.421 522.35 178.825L567.36 163.073C571.563 161.602 574.873 158.335 576.36 154.184L592.31 109.728Z"
-        fill="currentColor" />
+        fill="#d3697f" />
       <path
         d="M100 448.657C100 587.47 215.807 700 358.66 700C468.637 700 562.58 633.31 600 539.277C570.363 552.803 537.27 560.363 502.363 560.363C375.38 560.363 272.441 460.337 272.441 336.947C272.441 285.342 290.446 237.824 320.685 200C195.834 217.85 100 322.377 100 448.657Z"
-        stroke="currentColor" stroke-width="85" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        stroke="#d3697f" stroke-width="85" stroke-linecap="round" stroke-linejoin="round" fill="none" />
     </svg>
   </button>
 
@@ -156,13 +156,12 @@
     <button class="modal-exit-button" onclick="document.querySelector('.projects-modal').style.display='none'"></button>
 
     <div class="modal-wrapper">
-      <h1 class="modal-title">Projects</h1>
 
       <div class="project-slider">
         <div class="slides-container">
 
           <div class="slide active">
-            <h2>Battleship Game</h2>
+            <h1>Battleship Game</h1>
             <div class="slide-content">
               <img id="battleship-gif" src="/projects/battleship-1.gif" alt="Battleship Animation"
                 class="project-image" />
@@ -177,11 +176,12 @@
           </div>
 
           <div class="slide">
-            <h2>Memory Card</h2>
+            <h1>Memory Card</h1>
             <div class="slide-content">
-              <img id="memory-img" src="/projects/memory-1.png" alt="Memory Card Animation" class="project-image" />
+              <img id="memory-gif" alt="Memory Card Animation" class="project-image" />
               <div class="slide-text">
-                <p>A React-based memory card game that fetches Studio Ghibli character images from an external API. The
+                <p>A React-based memory card game that fetches Studio Ghibli character images from an external API. <br>
+                  The
                   game challenges players to click on unique cards without repetition, with a scoreboard tracking
                   current and best scores. It highlights abilities in React hooks, state management, and asynchronous
                   data fetching.</p>
@@ -192,11 +192,11 @@
           </div>
 
           <div class="slide">
-            <h2>Blog API</h2>
+            <h1>Blog API</h1>
             <div class="slide-content">
-              <img src="/projects/blog-api.gif" alt="Blog API Animation" class="project-image" />
+              <img id="blog-gif" src="/projects/blog-api.gif" alt="Blog API Animation" class="project-image" />
               <div class="slide-text">
-                <p>A full-stack blogging platform developed with Node.js, Express, and MongoDB. It features a RESTful
+                <p>A full-stack blogging platform developed with Node.js and Express. <br> It features a RESTful
                   API for managing blog posts and a frontend interface for content creation and display. This project
                   demonstrates skills in backend development, API design, and frontend integration.</p>
                 <p>🔗 Live Demo: <a href="https://danya-digital-diary.netlify.app">danya-digital-diary.netlify.app</a>
@@ -206,12 +206,13 @@
           </div>
 
           <div class="slide">
-            <h2>CV Application</h2>
+            <h1>CV Application</h1>
             <div class="slide-content">
-              <img src="/projects/cv-app.gif" alt="CV Application Animation" class="project-image" />
+              <img id="cv-gif" src="/projects/cv-app.gif" alt="CV Application Animation" class="project-image" />
               <div class="slide-text">
                 <p>A dynamic CV generator built with React, allowing users to input personal, educational, and
-                  professional information. The application renders a formatted resume in real-time, emphasizing skills
+                  professional information. <br> The application renders a formatted resume in real-time, emphasizing
+                  skills
                   in form handling, component-based architecture, and responsive design.</p>
                 <p>🔗 Live Demo: <a
                     href="https://splendorous-mermaid-b64483.netlify.app">splendorous-mermaid-b64483.netlify.app</a></p>
@@ -228,42 +229,43 @@
       </div>
     </div>
   </div>
+
   <div class="contactme-modal" role="dialog" aria-modal="true" aria-labelledby="contactme-title">
     <button class="modal-exit-button"
       onclick="document.querySelector('.contactme-modal').style.display='none'"></button>
 
     <div class="modal-wrapper">
-
       <div class="contactme-content">
         <div class="contactme-form-section">
-          <h2 class="form-title">Send a Message</h2>
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+          <h1 class="form-title">Feel free to stay in touch with me</h1>
+
+          <form id="contact-form" class="contact-form">
             <input type="text" name="name" placeholder="Your Name" required />
             <input type="email" name="email" placeholder="Your Email" required />
             <input type="text" name="subject" placeholder="Subject" required />
             <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
             <button type="submit" class="send-button">Send</button>
           </form>
-        </div>
 
-        <div class="contactme-social-section">
-          <h3 class="social-title">Connect With Me</h3>
-          <div class="social-icons">
-            <a href="https://github.com/YOUR_USERNAME" target="_blank" aria-label="GitHub">
-              <i class="devicon-github-original colored"></i>
-            </a>
-            <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" aria-label="LinkedIn">
-              <i class="devicon-linkedin-plain colored"></i>
-            </a>
-            <a href="mailto:youremail@example.com" aria-label="Email">
-              <i class="fas fa-envelope pink-icon"></i>
-            </a>
+          <div id="form-success" style="display: none; color: #d3697f; font-size: 1.1rem;">
+            Thank you! Your message has been sent.
           </div>
         </div>
       </div>
+      <div class="contactme-social-section">
+        <div class="social-icons">
+          <a href="https://github.com/98danya" target="_blank" aria-label="GitHub">
+            <img id="github-icon" src="images/github-day.svg" alt="GitHub" />
+          </a>
+          <a href="https://linkedin.com/in/danya-mohammed" target="_blank" aria-label="LinkedIn">
+            <img id="linkedin-icon" src="images/linkedin-day.svg" alt="LinkedIn" />
+          </a>
+        </div>
+      </div>
+    </div>
 
 
-      <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
