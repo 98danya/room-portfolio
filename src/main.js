@@ -63,7 +63,6 @@ const loadedTextures = {
 
 let lpMesh = null;
 let toneArmMesh = null;
-let currentHoveredObject = null;
 let chairMesh = null;
 
 Object.entries(textureMap).forEach(([key, paths]) => {
@@ -77,19 +76,6 @@ Object.entries(textureMap).forEach(([key, paths]) => {
   nightTexture.colorSpace = THREE.SRGBColorSpace;
   loadedTextures.night[key] = nightTexture;
 });
-
-/*
-
-// Posters related
-
-const posterTwoTexture = textureLoader.load("/textures/posters/poster2.jpg");
-posterTwoTexture.flipY = false;
-posterTwoTexture.colorSpace = THREE.SRGBColorSpace;
-
-const posterThirdTexture = textureLoader.load("/textures/posters/poster3.jpg");
-posterThirdTexture.flipY = false;
-posterThirdTexture.colorSpace = THREE.SRGBColorSpace;
-*/
 
 /**  -------------------------- Modal Stuff -------------------------- */
 const modals = {
@@ -234,7 +220,6 @@ document.querySelectorAll(".modal-exit-button").forEach((button) => {
 let isModalOpen = false;
 
 const showModal = (modal) => {
-  console.log("Showing modal:", modal);
   modal.style.display = "block";
   overlay.style.display = "block";
 
@@ -425,18 +410,8 @@ function handleCursorAndHover() {
   document.body.style.cursor = hoveringClickable ? "pointer" : "default";
 }
 
-function handleRaycasterInteraction() {
-  if (currentIntersects.length > 0) {
-    const object = currentIntersects[0].object;
-    if (object.name.includes("Raycaster")) {
-      playRaycasterAnimation(object, true);
-    }
-  }
-}
-
-/**  -------------------------- Day/Night Mode and Loading Screen -------------------------- */
-const createBlendedMaterial = (dayTexture, nightTexture) => {
-  return new THREE.ShaderMaterial({
+const createBlendedMaterial = (dayTexture, nightTexture, isPoster = false) => {
+  const material = new THREE.ShaderMaterial({
     uniforms: {
       uDayTexture: { value: dayTexture },
       uNightTexture: { value: nightTexture },
@@ -458,7 +433,7 @@ const createBlendedMaterial = (dayTexture, nightTexture) => {
       void main() {
         vec4 dayColor = texture2D(uDayTexture, vUv);
         vec4 nightColor = texture2D(uNightTexture, vUv);
-vec4 mixedColor = mix(dayColor, nightColor, smoothstep(0.0, 1.0, uMixRatio));
+        vec4 mixedColor = mix(dayColor, nightColor, smoothstep(0.0, 1.0, uMixRatio));
 
         mixedColor.rgb = pow(mixedColor.rgb, vec3(1.0 / 2.2));
 
@@ -467,6 +442,12 @@ vec4 mixedColor = mix(dayColor, nightColor, smoothstep(0.0, 1.0, uMixRatio));
     `,
     transparent: true,
   });
+
+  if (isPoster) {
+    material.side = THREE.DoubleSide;
+  }
+
+  return material;
 };
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -474,8 +455,6 @@ geometry.computeVertexNormals();
 
 const loadingScreen = document.querySelector(".loading-screen");
 const loadingScreenButton = document.querySelector(".loading-screen-button");
-const desktopInstructions = document.querySelector(".desktop-instructions");
-const mobileInstructions = document.querySelector(".mobile-instructions");
 const loadingBar = document.getElementById("loading-bar");
 const loadingBarContainer = document.querySelector(".loading-bar-container");
 
@@ -562,16 +541,14 @@ function playReveal() {
 
 /**  -------------------------- GLB Model -------------------------- */
 
-loader.load("/models/danya_portfolio.glb", (glb) => {
+loader.load("/models/danya_room_portfolio.glb", (glb) => {
   if (!glb || !glb.scene) {
     console.error("GLB file loaded but contains no scene.");
     return;
   }
-  console.log(glb.scene);
   glb.scene.traverse((child) => {
     if (child.isMesh) {
       child.geometry.computeVertexNormals();
-
       if (
         (child.name.includes("Raycaster") || child.name.includes("Sign_")) &&
         !child.name.includes("Chair")
@@ -586,24 +563,26 @@ loader.load("/models/danya_portfolio.glb", (glb) => {
           child.position
         );
       }
-      /*
-      if (child.name.includes("Poster_2")) {
-        child.material = new THREE.MeshBasicMaterial({ map: posterTwoTexture });
-        child.material.map.minFilter = THREE.LinearFilter;
-      }
-      if (child.name.includes("Poster_3")) {
-        child.material = new THREE.MeshBasicMaterial({ map: posterThirdTexture });
-        child.material.map.minFilter = THREE.LinearFilter;
-      }
-        */
 
+      if (child.name.includes("Poster_")) {
+        const posterMaterial = createBlendedMaterial(
+          loadedTextures.day["Second"],
+          loadedTextures.night["Second"],
+          true
+        );
+
+        child.material = posterMaterial;
+        child.material.needsUpdate = true;
+        child.visible = true;
+        child.geometry.computeVertexNormals();
+      }
       if (child.name.includes("Mirror")) {
         const mirrorGeo = child.geometry;
         const mirrorPos = child.position.clone();
         const mirrorRot = child.rotation.clone();
         const mirrorScale = child.scale.clone();
 
-        child.parent?.remove(child);
+        child.visible = false;
 
         const reflector = new Reflector(mirrorGeo, {
           clipBias: 0.003,
@@ -660,31 +639,19 @@ loader.load("/models/danya_portfolio.glb", (glb) => {
       }
 
       Object.keys(textureMap).forEach((key) => {
-        if (child.name.includes(key)) {
-          const dayMat = new THREE.MeshBasicMaterial({
-            map: loadedTextures.day[key],
-            transparent: true,
-            opacity: currentMode === "day" ? 1 : 0,
-          });
-
-          const nightMat = new THREE.MeshBasicMaterial({
-            map: loadedTextures.night[key],
-            transparent: true,
-            opacity: currentMode === "night" ? 1 : 0,
-          });
-
+        if (child.name.includes(key) && !child.name.includes("Poster")) {
           child.material = createBlendedMaterial(
             loadedTextures.day[key],
-            loadedTextures.night[key]
+            loadedTextures.night[key],
+            false
           );
           child.userData.material = child.material;
         }
       });
     }
     child.renderOrder = 1;
-
-    scene.add(glb.scene);
   });
+  scene.add(glb.scene);
 });
 
 /**  -------------------------- Day/Night Mode Button Toggle and Camera Settings -------------------------- */
@@ -703,7 +670,6 @@ toggleButton.addEventListener("click", () => {
 
   document.body.classList.toggle("dark-mode", currentMode === "night");
   document.body.classList.toggle("light-mode", currentMode === "day");
-  const isNightMode = currentMode === "night";
 
   document.getElementById("github-icon").src =
     currentMode === "day" ? "images/github-day.svg" : "images/github-night.svg";
@@ -713,30 +679,38 @@ toggleButton.addEventListener("click", () => {
       ? "images/linkedin-day.svg"
       : "images/linkedin-night.svg";
 
-  scene.traverse((child) => {
-    if (
-      child.userData.material &&
-      child.userData.material.uniforms?.uMixRatio
-    ) {
-      gsap.to(child.userData.material.uniforms.uMixRatio, {
-        value: isNightMode ? 1 : 0,
-        duration: 1.5,
-        ease: "power2.inOut",
-      });
-    }
+  const isNightMode = currentMode === "night";
 
-    if (child.isMesh && child.userData.materials) {
-      const { day, night } = child.userData.materials;
-
-      if (day && night) {
-        child.material = currentMode === "day" ? day : night;
-        gsap.to(day, { opacity: currentMode === "day" ? 1 : 0, duration: 1 });
-        gsap.to(night, { opacity: currentMode === "day" ? 0 : 1, duration: 1 });
+  if (scene && scene.children.length > 0) {
+    scene.traverse((child) => {
+      if (
+        child.userData.material &&
+        child.userData.material.uniforms?.uMixRatio
+      ) {
+        gsap.to(child.userData.material.uniforms.uMixRatio, {
+          value: isNightMode ? 1 : 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+        });
       }
-    }
-  });
-});
 
+      if (child.isMesh && child.userData.materials) {
+        const { day, night } = child.userData.materials;
+
+        if (day && night) {
+          child.material = currentMode === "day" ? day : night;
+          gsap.to(day, { opacity: currentMode === "day" ? 1 : 0, duration: 1 });
+          gsap.to(night, {
+            opacity: currentMode === "day" ? 0 : 1,
+            duration: 1,
+          });
+        }
+      }
+    });
+  } else {
+    console.warn("Scene not ready for mode toggle.");
+  }
+});
 toggleButton.addEventListener("mouseover", () => {
   document.body.style.cursor = "pointer";
 });

@@ -29,7 +29,9 @@
 
 .loading-bar-container {
   position: absolute;
-  bottom: 500px;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 50%;
   height: 80px;
   background-color: #e6dede;
@@ -789,6 +791,7 @@ textarea::placeholder {
 ======================= */
 
 @media (max-width: 768px) {
+
   .aboutme-modal,
   .projects-modal,
   .contactme-modal {
@@ -843,6 +846,7 @@ textarea::placeholder {
 }
 
 @media (max-width: 480px) {
+
   .aboutme-modal,
   .projects-modal,
   .contactme-modal {
@@ -881,6 +885,11 @@ textarea::placeholder {
   .tech-item img {
     width: 36px;
     height: 36px;
+  }
+
+  .tech-item span {
+    padding-top: 1rem;
+    padding-left: 0.5rem;
   }
 
   .loading-bar-container {
